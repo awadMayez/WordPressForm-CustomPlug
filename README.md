@@ -6,4 +6,4 @@ Custom wordpress feedback form plugin
  *****************************************************************************************
  SOON
  *****************************************************************************************
- Implementig hubSpot api to create new contact.
+ Developing "create new contact" at hubSpot.
