@@ -110,8 +110,6 @@ function cf_shortcode() {
 	ob_start();
 	deliver_mail();
 	html_form_code();
-  //  create_contact();
-
 	return ob_get_clean();
 }
 
