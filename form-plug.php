@@ -29,11 +29,12 @@ Author URI:
     echo '</p>';
     echo '<p>';
     echo 'Your Email (required) <br />';
-    echo '<input type="email" name="cf-email" value="' . ( isset( $_POST["cf-email"] ) ? esc_attr( $_POST["cf-email"] ) : '' ) . '" size="40" />';
+    echo '<input type="email" name="cf-email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="' . ( isset( $_POST["cf-email"] ) ? esc_attr( $_POST["cf-email"] ) : '' ) . '" size="40" />';
     echo '</p>';
     echo '<p><input type="submit" name="cf-submitted" value="Submit"/></p>';
     echo '</form>';
 }
+
 
 function deliver_mail() {
 
@@ -45,26 +46,35 @@ function deliver_mail() {
         $email   = sanitize_email( $_POST["cf-email"] );
         $subject = sanitize_text_field( $_POST["cf-subject"] );
         $message = esc_textarea( $_POST["cf-message"] );
-
         //  email address
-         $to = get_option( 'admin_email' );
+        //$to = "urMail@example.domen";
+        $to = get_option( 'admin_email' );
 
         $headers = "From: $name <$email>" . "\r\n";
+ 
+
         // If email has been process for sending, display a success message
-        if ( wp_mail( $to, $subject, $message, $headers ) ) {
+        if ( $result =wp_mail( $to, $subject, $message, $headers ) ) {
             echo '<div>';
-            echo '<p>Thanks for contacting me, expect a response soon.</p>';
+            echo '<p>Message sent</p>';
             echo '</div>';
         } else {
-            echo 'An unexpected error occurred';
+            echo 'Message not sent';
         }
     }
+        // making log file 
+        if ($result) {
+            file_put_contents ('sent.log', print_r($headers, true), FILE_APPEND);
+            }
+
 }
+
+
+
 function cf_shortcode() {
 	ob_start();
 	deliver_mail();
 	html_form_code();
-
 	return ob_get_clean();
 }
 
