@@ -80,7 +80,7 @@ function deliver_mail() {
                 ),
                 array(
                     'property' => 'lastname',
-                    'value' => $email
+                    'value' => $lname
                 )
             )
         );
