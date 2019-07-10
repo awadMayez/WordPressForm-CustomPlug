@@ -85,7 +85,7 @@ function deliver_mail() {
             )
         );
          $post_json = json_encode($arr);
-        $hapikey = readline("Enter hapikey: (demo for the demo portal): ");
+        $hapikey = "46efe4f0-ed5d-4c99-b174-c3cb0dddf06b";
         $endpoint = 'https://api.hubapi.com/contacts/v1/contact?hapikey=' . $hapikey;
         $ch = @curl_init();
         @curl_setopt($ch, CURLOPT_POST, true);
@@ -110,6 +110,8 @@ function cf_shortcode() {
 	ob_start();
 	deliver_mail();
 	html_form_code();
+  //  create_contact();
+
 	return ob_get_clean();
 }
 
